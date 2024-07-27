@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:15:52 by lelichik          #+#    #+#             */
-/*   Updated: 2024/07/25 18:16:15 by lelichik         ###   ########.fr       */
+/*   Updated: 2024/07/27 13:18:57 by opanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ph_thinking(t_philo *philo)
 	pthread_mutex_lock(&philo->info->print);
 	printf("Time: %lldms Philo: %d is thinking\n", get_curr_time(philo->info), philo->num_philo + 1);
 	pthread_mutex_unlock(&philo->info->print);
-	ft_usleep(philo->info->time_sleep);
+	ft_usleep(100);
 	if(check_died(philo))
 		return (1);
 	return (0);

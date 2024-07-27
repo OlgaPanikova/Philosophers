@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:42:10 by lelichik          #+#    #+#             */
-/*   Updated: 2024/07/23 00:13:51 by lelichik         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:31:27 by opanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_general_struct(t_general *info)
 		free(info->forks);
 	}
 	if (info->philo)
-		free(info->philo);
+		free(info->philo); // навенрое надо добавить мьютекс дестрой для остального
 	free(info);
 }
 

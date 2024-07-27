@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:45:24 by lelichik          #+#    #+#             */
-/*   Updated: 2024/07/26 16:26:17 by lelichik         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:30:23 by opanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// void print_philo(t_general *philo)
-// {
-//     if (philo == NULL)
-//     {
-//         printf("Invalid philosopher structure.\n");
-//         return;
-//     }
-//     printf("Philosopher %d:\n", philo->count_philo);
-//     printf("  Time to die: %d ms\n", philo->time_die);
-//     printf("  Time to eat: %d ms\n", philo->time_eat);
-//     printf("  Time to sleep: %d ms\n", philo->time_sleep);
-//     printf("  Number of times to eat before exit: %d\n", philo->num_eat_before_exit);
-// }
-
-void print_philos(t_general *info)
-{
-    if (info == NULL || info->philo == NULL)
-        return;
-
-    for (int i = 0; i < info->count_philo; i++)
-    {
-        t_philo *ph = &info->philo[i];
-        printf("Philosopher %d:\n", ph->num_philo);
-        printf("  Right Fork: %p\n", (void *)ph->right_fork);
-        printf("  Left Fork: %p\n", (void *)ph->left_fork);
-    }
-}
 
 int	init_forks(t_general *info)
 {
@@ -120,9 +92,10 @@ int	main(int argc, char **argv)
 	if(!info)
 		return (1);
 	init_general(info, argc, argv);
-	if((init_forks(info)) || (init_philo(info)))
+	if((init_forks(info) != 0) || (init_philo(info) != 0))
 		return (1);
-	print_philos(info);
-	born_philo(info);
-	return (0); // незабыть почистить структуру
+	if(born_philo(info) != 0)
+		return (1);
+	free_general_struct(info);
+	return (0);
 }

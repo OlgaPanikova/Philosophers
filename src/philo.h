@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:45:58 by lelichik          #+#    #+#             */
-/*   Updated: 2024/07/26 16:26:30 by lelichik         ###   ########.fr       */
+/*   Updated: 2024/07/27 14:10:49 by opanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_general
 	long long		start_time;
 	int				died_philo;
 	int				someone_died;
+	pthread_t		die_th;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	died_mutex;
@@ -55,13 +56,14 @@ int			check_arguments(int ac, char **av);
 int			check_num(char *str);
 int			ft_atoi(const char *str);
 
+void		free_general_struct(t_general *info);
 void		error_exit(t_general *info, char *error_message);
 
 long long	get_time(void);
 long long	get_curr_time(t_general *info);
 void		ft_usleep(int i);
 
-void		born_philo(t_general *info);
+int			born_philo(t_general *info);
 int			check_died(t_philo *philo);
 
 int			ph_thinking(t_philo *philo);
