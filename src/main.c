@@ -1,0 +1,128 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/22 13:45:24 by lelichik          #+#    #+#             */
+/*   Updated: 2024/07/26 16:26:17 by lelichik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+// void print_philo(t_general *philo)
+// {
+//     if (philo == NULL)
+//     {
+//         printf("Invalid philosopher structure.\n");
+//         return;
+//     }
+//     printf("Philosopher %d:\n", philo->count_philo);
+//     printf("  Time to die: %d ms\n", philo->time_die);
+//     printf("  Time to eat: %d ms\n", philo->time_eat);
+//     printf("  Time to sleep: %d ms\n", philo->time_sleep);
+//     printf("  Number of times to eat before exit: %d\n", philo->num_eat_before_exit);
+// }
+
+void print_philos(t_general *info)
+{
+    if (info == NULL || info->philo == NULL)
+        return;
+
+    for (int i = 0; i < info->count_philo; i++)
+    {
+        t_philo *ph = &info->philo[i];
+        printf("Philosopher %d:\n", ph->num_philo);
+        printf("  Right Fork: %p\n", (void *)ph->right_fork);
+        printf("  Left Fork: %p\n", (void *)ph->left_fork);
+    }
+}
+
+int	init_forks(t_general *info)
+{
+	int	i;
+
+	i = 0;
+	info->forks = malloc(info->count_philo * sizeof(pthread_mutex_t));
+	if(!info->forks)
+	{
+		error_exit(info, "Memory cannot be allocated");
+		return (1);
+	}
+	while(i < info->count_philo)
+	{
+		if (pthread_mutex_init(&info->forks[i], NULL) != 0)
+		{
+			error_exit(info, "Failed to initialize mutex");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	init_philo(t_general *info)
+{
+	t_philo	*ph;
+	int		i;
+
+	i = 0;
+	info->philo = malloc(info->count_philo * sizeof(t_philo));
+	if(!info->philo)
+	{
+		error_exit(info, "Memory cannot be allocated");
+		return (1);
+	}
+	while(i < info->count_philo)
+	{
+		ph = &info->philo[i];
+		ph->num_philo = i;
+		ph->right_fork = &info->forks[i];
+		ph->left_fork = &info->forks[(i + 1) % info->count_philo];
+		ph->info = info;
+		ph->last_meal = 0;
+		ph->count_eat = 0;
+		pthread_mutex_init(&(info->philo[i].last_meal_mutex), NULL);
+		pthread_mutex_init(&(info->philo[i].count_eat_mutex), NULL);
+		i++;
+	}
+	return (0);
+}
+
+void	init_general(t_general *info, int ac, char **arg)
+{
+	info->count_philo = ft_atoi(arg[1]);
+	info->time_die = ft_atoi(arg[2]);
+	info->time_eat = ft_atoi(arg[3]);
+	info->time_sleep = ft_atoi(arg[4]);
+	if(ac == 6)
+		info->num_eat_before_exit = ft_atoi(arg[5]);
+	else
+		info->num_eat_before_exit = 0;
+	info->start_time = get_time();
+	info->someone_died = 0;
+	pthread_mutex_init(&info->print, NULL);
+	pthread_mutex_init(&info->died_mutex, NULL);
+}
+
+int	main(int argc, char **argv)
+{
+	t_general *info;
+	
+	if(check_arguments(argc, argv) == 1)
+	{
+		printf("The arguments are specified incorrectly\n");
+		return (1);
+	}
+	info = malloc(sizeof(t_general));
+	if(!info)
+		return (1);
+	init_general(info, argc, argv);
+	if((init_forks(info)) || (init_philo(info)))
+		return (1);
+	print_philos(info);
+	born_philo(info);
+	return (0); // незабыть почистить структуру
+}
