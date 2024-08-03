@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:45:24 by lelichik          #+#    #+#             */
-/*   Updated: 2024/08/03 02:00:36 by lelichik         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:46:56 by opanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	init_general(t_general *info, int ac, char **arg)
 		info->num_eat_before_exit = ft_atoi(arg[5]);
 	else
 		info->num_eat_before_exit = 0;
-	info->start_time = get_time();
 	info->someone_died = 0;
+	info->max_eat = 0;
 	pthread_mutex_init(&info->print, NULL);
 	pthread_mutex_init(&info->died_mutex, NULL);
 }
@@ -96,6 +96,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if(born_philo(info) != 0)
 		return (1);
-	free_general_struct(info);
+	clean_up(info);
 	return (0);
 }
