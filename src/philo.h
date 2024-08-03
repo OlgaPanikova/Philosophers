@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:45:58 by lelichik          #+#    #+#             */
-/*   Updated: 2024/07/27 14:10:49 by opanikov         ###   ########.fr       */
+/*   Updated: 2024/08/03 02:04:10 by lelichik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ typedef struct s_general
 	long long		start_time;
 	int				died_philo;
 	int				someone_died;
+	pthread_t		monitor_th;
 	pthread_t		die_th;
+	pthread_t		eat_th;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	died_mutex;

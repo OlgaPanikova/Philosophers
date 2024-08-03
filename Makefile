@@ -5,7 +5,7 @@ SRCS = $(addprefix $(SRCDIR)/, main.c check.c free.c time.c live.c philo.c)
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 HEADER = $(SRCDIR)/philo.h
 
 all: $(NAME) 
