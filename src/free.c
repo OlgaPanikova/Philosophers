@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:42:10 by lelichik          #+#    #+#             */
-/*   Updated: 2024/08/03 20:46:41 by opanikov         ###   ########.fr       */
+/*   Updated: 2024/08/04 23:35:47 by lelichik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	clean_up(t_general *info)
 	}
 	pthread_mutex_destroy(&info->print);
 	pthread_mutex_destroy(&info->died_mutex);
+	pthread_mutex_destroy(&info->max_eat_mutex);
 }
 
 void	error_exit(t_general *info, char *error_message)

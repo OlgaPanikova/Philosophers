@@ -6,7 +6,7 @@
 /*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:24:43 by lelichik          #+#    #+#             */
-/*   Updated: 2024/08/02 17:44:53 by lelichik         ###   ########.fr       */
+/*   Updated: 2024/08/05 22:53:16 by lelichik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	ft_usleep(int i)
 	long long	start;
 
 	start = get_time();
-	while ((get_time() - start) < i)
-		usleep(i / 10);
+	while (get_time() - start < i)
+		usleep(i / 2);
 }

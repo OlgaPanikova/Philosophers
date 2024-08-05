@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: opanikov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lelichik <lelichik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:45:58 by lelichik          #+#    #+#             */
-/*   Updated: 2024/08/03 20:47:22 by opanikov         ###   ########.fr       */
+/*   Updated: 2024/08/05 00:23:34 by lelichik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_general
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	died_mutex;
+	pthread_mutex_t	max_eat_mutex;
 	t_philo			*philo;
 }			t_general;
 
